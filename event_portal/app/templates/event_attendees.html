@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Attendees – {{ event.title }}{% endblock %}
+{% block content %}
+<h2>Attendees for: <strong>{{ event.title }}</strong></h2>
+<p><strong>Date:</strong> {{ event.date }} | <strong>Location:</strong> {{ event.location }}</p>
+<hr>
+
+{% if registrations %}
+<table class="table table-striped text-white">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Check-In</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reg in registrations %}
+        <tr>
+            <td>{{ reg.attendee.name }}</td>
+            <td>{{ reg.attendee.email }}</td>
+            <td>
+                {% if reg.checked_in %}
+                    <span class="badge bg-success">Checked In</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Not Checked In</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not reg.checked_in %}
+                <form method="POST" action="{{ url_for('checkin_attendee', reg_id=reg.id) }}">
+                    <button type="submit" class="btn btn-sm btn-custom">Check In</button>
+                </form>
+                {% else %}
+                    <i class="text-muted">Done</i>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No registrations yet for this event.</p>
+{% endif %}
+{% endblock %}

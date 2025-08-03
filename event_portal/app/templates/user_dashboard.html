@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard - Event Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Event Portal</a>
+        <div class="d-flex">
+            <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Welcome, {{ current_user.name }}!</h2>
+
+    <div class="mb-3">
+        <a href="{{ url_for('user_events') }}" class="btn btn-primary">Register for New Event</a>
+    </div>
+
+    <h4>Your Registered Events</h4>
+    {% if registered_events %}
+        <table class="table table-bordered table-hover mt-3 bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reg in registered_events %}
+                <tr>
+                    <td>{{ reg.event.name }}</td>
+                    <td>{{ reg.event.date.strftime('%d-%b-%Y') }}</td>
+                    <td>{{ reg.event.location }}</td>
+                    <td>
+                        {% if reg.checked_in %}
+                            <span class="badge bg-success">Checked In</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Registered</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-muted">You haven't registered for any events yet.</p>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

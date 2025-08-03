@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}My Registrations{% endblock %}
+{% block content %}
+<h2 class="mb-4">My Registered Events</h2>
+
+{% if registrations %}
+<div class="row">
+    {% for reg in registrations %}
+    <div class="col-md-6 mb-4">
+        <div class="card p-3">
+            {% if reg.event.image %}
+                <img src="{{ url_for('static', filename='images/' ~ reg.event.image) }}" class="img-fluid rounded mb-2">
+            {% endif %}
+            <h4>{{ reg.event.title }}</h4>
+            <p>{{ reg.event.description }}</p>
+            <p><strong>{{ reg.event.date }} at {{ reg.event.time }}</strong></p>
+            <p>{{ reg.event.location }}</p>
+            <p><strong>Status:</strong> {% if reg.checked_in %}<span class="text-success">Checked In</span>{% else %}<span class="text-warning">Not Checked In</span>{% endif %}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>You haven't registered for any events yet.</p>
+{% endif %}
+{% endblock %}

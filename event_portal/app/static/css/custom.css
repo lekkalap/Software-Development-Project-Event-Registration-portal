@@ -1,0 +1,39 @@
+/* Abstract colorful gradients */
+body {
+    background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    background-attachment: fixed;
+}
+
+/* Navbar customization */
+.navbar {
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Card styles */
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Button */
+.btn-custom {
+    background: linear-gradient(to right, #43e97b, #38f9d7);
+    color: #000;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}

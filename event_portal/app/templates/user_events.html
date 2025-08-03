@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Browse Events{% endblock %}
+{% block content %}
+<h2 class="mb-4">Available Events</h2>
+
+<div class="row">
+    {% for event in events %}
+    <div class="col-md-6 mb-4">
+        <div class="card p-3">
+            {% if event.image %}
+                <img src="{{ url_for('static', filename='images/' ~ event.image) }}" class="img-fluid rounded mb-2">
+            {% endif %}
+            <h4>{{ event.title }}</h4>
+            <p>{{ event.description }}</p>
+            <p><strong>{{ event.date }} at {{ event.time }}</strong></p>
+            <p>{{ event.location }}</p>
+
+            {% if event.id in registrations %}
+                <span class="badge bg-success">Registered</span>
+            {% else %}
+                <form method="POST" action="{{ url_for('register_event', event_id=event.id) }}">
+                    <button type="submit" class="btn btn-custom">Register</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
